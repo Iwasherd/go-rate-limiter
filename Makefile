@@ -7,10 +7,10 @@ BUILD_TIME = $$(date -u +"%Y/%m/%d %T")
 BUILD_VERSION = $$(cat version)
 
 
-build: check
+build:
 	CGO_ENABLED=0 go build -ldflags="-w -s -X '$(BUILD_PACKAGE).VersionNumber=$(BUILD_VERSION)' -X '$(BUILD_PACKAGE).GitSHA=$(BUILD_SHA)'  -X '$(BUILD_PACKAGE).Time=$(BUILD_TIME)'" -o $(BUILD_DIR)/$(MODULE_NAME) .
 
-check:
+lint:
 	go vet ./...
 	gosec -quiet ./...
 	govulncheck -show verbose ./...
