@@ -1,4 +1,4 @@
-module github.com/iwasherd/go-rate-limiter
+module github.com/iwasherd/ratelimiter
 
 go 1.22
 
