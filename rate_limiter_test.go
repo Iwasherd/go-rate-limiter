@@ -1,6 +1,7 @@
 package ratelimiter
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -33,5 +34,37 @@ func TestRateLimiter(t *testing.T) {
 		}
 
 		assert.Equal(t, limiter.Allow(), false)
+	})
+
+	t.Run("should work correctly with memory storage", func(t *testing.T) {
+		storage := NewMemoryTimeStorage()
+		limiter := New(2, 1*time.Second, storage)
+
+		var wg sync.WaitGroup
+		allowedRequests := 0
+		deniedRequests := 0
+
+		for i := 0; i < 10; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				if limiter.Allow() {
+					allowedRequests++
+				} else {
+					deniedRequests++
+				}
+			}()
+		}
+
+		wg.Wait()
+
+		assert.Equal(t, allowedRequests, 2, "allowed requests")
+		assert.Equal(t, deniedRequests, 8, "denied requests")
+
+		time.Sleep(1 * time.Second)
+
+		allowed := limiter.Allow()
+		assert.Equal(t, allowed, true)
+
 	})
 }
