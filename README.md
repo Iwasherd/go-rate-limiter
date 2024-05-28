@@ -59,7 +59,7 @@ git clone
 2. Change the working directory
 
 ```bash
-cd go-rate-limiter
+cd ratelimiter
 ```
 
 3. Run the tests
