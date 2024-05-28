@@ -5,7 +5,7 @@ A simple rate limiter for Go.
 ## Installation
 
 ```bash
-go get github.com/rohanprasad/go-rate-limiter
+go get github.com/iwasherd/ratelimiter
 ```
 
 ## Usage

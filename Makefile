@@ -45,4 +45,4 @@ install-tools:
 	go install honnef.co/go/tools/cmd/staticcheck@latest
 
 	go get -u mvdan.cc/gofumpt@latest
-	go install mvdan.cc/gofumpt@latest
+	#go install mvdan.cc/gofumpt@latest
