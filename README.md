@@ -17,12 +17,14 @@ import (
     "fmt"
     "time"
 
-    "github.com/rohanprasad/go-rate-limiter"
+    "github.com/iwasherd/ratelimiter"
 )
 
 func main() {
+	// Create a new timestamps storage
+	storage := ratelimiter.NewMemoryTimeStorage()
     // Create a new rate limiter that allows 10 requests per second
-    limiter := rate.NewLimiter(10, time.Second)
+    limiter := ratelimiter.New(10, time.Second, storage)
 
     // Check if the rate limiter allows a request
     if limiter.Allow() {
